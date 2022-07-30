@@ -1,29 +1,30 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
+        # Iterate through grid
+        # Explore when encounter 1, change to -1 to mark visited, increment count
         
-        if not grid:
-            return 0
-        
-        rows, cols = len(grid), len(grid[0])
-        islands = 0    
-    
-        for i in range(rows):
-            for j in range(cols):
-                if grid[i][j] == "1":
+        islands = 0
+        for row in range(len(grid)): # Rows
+            for col in range(len(grid[0])): # Cols
+                # Skip all 0's and -1's
+                if grid[row][col] == "1":
+                    self.dfs(grid, row, col)
                     islands += 1
-                    self.dfs(grid, i, j)
         
         return islands
-    
-    def dfs(self, grid, i, j):
-            #Conditions not met for island
-            if (i < 0 or j < 0 or i >= len(grid) or j >= len(grid[0]) or
-                grid[i][j] != "1"):
-                return
+        
+    def dfs(self, grid, row, col):
+        # Mark as visited
+        grid[row][col] = "-1"
+        
+        # Explore adjacent land (rows)
+        if (row + 1 < len(grid) and grid[row + 1][col] == '1'):
+            self.dfs(grid, row + 1, col)
+        if (row - 1 >= 0 and grid[row - 1][col] == '1'):
+            self.dfs(grid, row - 1, col)
             
-            #DEPTH, visit all adjacent spots recursively
-            grid[i][j] = "-1" #mark as visited
-            self.dfs(grid, i+1, j)
-            self.dfs(grid, i-1, j)
-            self.dfs(grid, i, j+1)
-            self.dfs(grid, i, j-1) 
+        # Explore adjacent land (cols)
+        if (col + 1 < len(grid[0]) and grid[row][col + 1] == '1'):
+            self.dfs(grid, row, col + 1)
+        if (col - 1 >= 0 and grid[row][col - 1] == '1'):
+            self.dfs(grid, row, col - 1)
