@@ -1,7 +1,6 @@
 class Solution:
     def wallsAndGates(self, rooms: List[List[int]]) -> None:
 
-        INF = 2147483647
         ROWS, COLS = len(rooms), len(rooms[0])
         q = collections.deque()
         visited = set()
