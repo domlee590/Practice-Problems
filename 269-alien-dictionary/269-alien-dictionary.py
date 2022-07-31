@@ -4,6 +4,9 @@ class Solution:
         # Generate adjacency list, first to second letters
         adj = { char:set() for word in words for char in word }
         
+        # Indegree tracking
+        indegree = {char:0 for word in words for char in word}
+        
         # Go through pairs
         for i in range(len(words) - 1):
             word1, word2 = words[i], words[i + 1]
@@ -16,31 +19,26 @@ class Solution:
             # Find first differing char
             for c in range(minLen):
                 if word1[c] != word2[c]:
-                    adj[word1[c]].add(word2[c])
+                    if word2[c] not in adj[word1[c]]:
+                        adj[word1[c]].add(word2[c])
+                        indegree[word2[c]] += 1
                     break
-            
+        
         # Explore all letters to get topological ordering
-        stack = []
-        visited = {} # True = Current Path, False = Completed, Absent = Unvisited
+        q = collections.deque()
+        for letter, indeg in indegree.items():
+            if indeg == 0:
+                q.append(letter)
         
-        def dfsTopsort(letter):
-            # Check if letter is in current path (cycle if True)
-            if letter in visited:
-                return visited[letter]
+        order = ""
+        while len(q) > 0:
+            curLetter = q.popleft()
             
-            visited[letter] = True
-
-            # Recur for all subsequent letters
-            for nextLetter in adj[letter]:
-                if dfsTopsort(nextLetter):
-                    return True # Cycle found
-
-            # Postorder append afer subsequent letters added
-            visited[letter] = False # Letter complete
-            stack.append(letter)
-        
-        for letter in adj.keys():
-            if dfsTopsort(letter):
-                return ""
-        
-        return "".join(stack[::-1])
+            order += curLetter
+            
+            for nextLetter in adj[curLetter]:
+                indegree[nextLetter] -= 1
+                if indegree[nextLetter] == 0:
+                    q.append(nextLetter)
+                    
+        return order if len(order) == len(indegree.keys()) else ""
