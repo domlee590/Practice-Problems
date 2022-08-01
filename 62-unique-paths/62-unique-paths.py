@@ -10,6 +10,7 @@ class Solution:
             return self.cache[(m,n)]
         
         # Novel value, how many paths from down tile and right tile
+        # THIS IS NOT POSITION, it is new size of grid after move
         self.cache[(m,n)] = self.uniquePaths(m - 1, n) + self.uniquePaths(m, n - 1)
         
         # Return novel value
