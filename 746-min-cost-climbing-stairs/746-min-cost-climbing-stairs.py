@@ -7,7 +7,9 @@ class Solution:
         # Seed the base case, the last step must cost itself to reach top
         T[-2] = cost[-1]
         
+        # Simulate choosing the cheapest step (must step on self, add smallest next)
         for i in range(len(T) - 3, -1, -1):
             T[i] = cost[i] + min(T[i+1], T[i+2])
-            
+        
+        # Return smallest first step to choose
         return min(T[0], T[1])
