@@ -3,8 +3,6 @@ class Solution:
         count = 0
         
         for i in range(len(s)):
-            # Expand outward from single char, checking if still palindrome
-            
             # Odd length palindromes
             # For each char
             count += self.countPal(s, i, i)
@@ -14,7 +12,8 @@ class Solution:
             count += self.countPal(s, i, i+1)
             
         return count
-        
+    
+    # Expand outward, checking if still palindrome
     def countPal(self, s, l, r):
         localCount = 0
         while (l >= 0) and (r < len(s)) and s[l] == s[r]:
