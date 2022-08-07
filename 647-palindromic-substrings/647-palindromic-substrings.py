@@ -12,9 +12,8 @@ class Solution:
                 l -=1 
                 r += 1
         
-        # Even length palindromes
-        # For each pair of characters
-        for i in range(len(s) - 1):
+            # Even length palindromes
+            # For each pair of characters
             l, r = i, i + 1
             while (l >= 0) and (r < len(s)) and s[l] == s[r]:
                 count += 1
