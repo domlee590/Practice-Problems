@@ -2,7 +2,7 @@ class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         
         # Create tabulation array (LIS starting at index)
-        # Seed base case, last index must be of length 1 (all of them actually)
+        # Base case is last index, which must be length 1
         T = [1 for _ in range(len(nums))]
         
         # Start iterating from second to last starting index
