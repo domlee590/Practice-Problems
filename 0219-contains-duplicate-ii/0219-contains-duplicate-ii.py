@@ -10,8 +10,6 @@ class Solution:
         seen[nums[L]] += 1
         
         while R < len(nums):
-            print(R)
-            
             if abs(R - L) > k:
                 seen[nums[L]] -= 1
                 L += 1
