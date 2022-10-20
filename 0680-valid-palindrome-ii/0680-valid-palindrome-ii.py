@@ -5,14 +5,7 @@ class Solution:
 
         while L < R:
             if s[L] != s[R]:
-                if self.check(s[L + 1:R + 1]):
-                    L += 1
-                    continue
-                elif self.check(s[L:R]):
-                    R -= 1
-                    continue
-                else:
-                    return False
+                return (self.check(s[L + 1:R + 1]) or self.check(s[L:R]))
 
             L += 1
             R -= 1
