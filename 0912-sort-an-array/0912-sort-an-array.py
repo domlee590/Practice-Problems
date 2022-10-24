@@ -13,6 +13,7 @@ class Solution:
             self.mergeSort(left)
             self.mergeSort(right)
             
+            # Cur starts at 0 for each recursive call
             L = R = cur = 0
             
             while L < len(left) and R < len(right):
